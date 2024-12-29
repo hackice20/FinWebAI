@@ -2,6 +2,8 @@
 
 FinWebAI is a versatile, multi-agent system that leverages advanced language models and specialized tools for financial analysis and web search. It integrates Groq, YFinance, and DuckDuckGo to provide insightful financial data, conduct web searches, and summarize information seamlessly.
 
+![Using the agent in playground](Screenshot%202024-12-29%20142633.png)
+
 ## Features
 
 ### Multi-Agent Architecture
