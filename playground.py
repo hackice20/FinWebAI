@@ -9,6 +9,7 @@ from phi.model.groq import Groq
 import os
 import phi
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from phi.playground import Playground, serve_playground_app
 # Load environment variables from .env file
