@@ -59,6 +59,11 @@ app.add_middleware(
 # Initialize Playground app for agents
 playground = Playground(agents=[finance_agent, web_search_agent])
 
+# Root endpoint
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the FinWeb AI API!"}
+    
 # Endpoint to get the playground app
 @app.get("/playground")
 def get_playground():
