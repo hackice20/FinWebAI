@@ -8,9 +8,6 @@ from dotenv import load_dotenv
 from phi.model.groq import Groq
 import os
 import phi
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
 from phi.playground import Playground, serve_playground_app
 # Load environment variables from .env file
 load_dotenv()
@@ -45,34 +42,8 @@ finance_agent=Agent(
 
 )
 
-# Create a FastAPI app
-app = FastAPI()
+app=Playground(agents=[finance_agent,web_search_agent]).get_app()
 
-# Allow CORS for all domains (you can restrict this to specific domains later)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allows all headers
-)
-
-# Initialize Playground app for agents
-playground = Playground(agents=[finance_agent, web_search_agent])
-
-# Root endpoint
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the FinWeb AI API!"}
-    
-# Endpoint to get the playground app
-@app.get("/playground")
-async def get_playground():
-    app_data = playground.get_app
-    return JSONResponse(content=app_data)
-
-# Serve playground app if running directly
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=7777, reload=True)
+if __name__=="__main__":
+    serve_playground_app("playground:app",reload=True)
 
