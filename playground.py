@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from phi.model.groq import Groq
 import os
 import phi
+from fastapi import FastAPI
 from phi.playground import Playground, serve_playground_app
 # Load environment variables from .env file
 load_dotenv()
