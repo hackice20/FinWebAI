@@ -67,8 +67,9 @@ def read_root():
     
 # Endpoint to get the playground app
 @app.get("/playground")
-def get_playground():
-    return JSONResponse(content=playground.get_app())
+async def get_playground():
+    app_data = playground.get_app
+    return JSONResponse(content=app_data)
 
 # Serve playground app if running directly
 if __name__ == "__main__":
