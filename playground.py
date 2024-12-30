@@ -42,8 +42,28 @@ finance_agent=Agent(
 
 )
 
-app=Playground(agents=[finance_agent,web_search_agent]).get_app()
+# Create a FastAPI app
+app = FastAPI()
 
-if __name__=="__main__":
-    serve_playground_app("playground:app",reload=True)
+# Allow CORS for all domains (you can restrict this to specific domains later)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
+
+# Initialize Playground app for agents
+playground = Playground(agents=[finance_agent, web_search_agent])
+
+# Endpoint to get the playground app
+@app.get("/playground")
+def get_playground():
+    return JSONResponse(content=playground.get_app())
+
+# Serve playground app if running directly
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
 
